@@ -96,7 +96,13 @@ async function cargarDisponibles(append = false) {
   if (!append) grid.innerHTML = "<p>Cargando propiedades…</p>";
 
   try {
-    const items = await fetchProps(state.page, state.limit, state.opType);
+    let items = await fetchProps(state.page, state.limit, state.opType);
+
+    // Filtro client-side como respaldo si el Worker no filtra por operación
+    if (state.opType) {
+      items = items.filter(p => p?.operations?.[0]?.operation_id === state.opType);
+    }
+
     state.props.push(...items);
 
     const html = items.map(cardHtml).join("");
