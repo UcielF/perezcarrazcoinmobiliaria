@@ -2,7 +2,7 @@
  * CONFIG
  **********************/
 const WHATSAPP_NUM = "2233048966"; // sin + ni 0 ni 15
-const EMAIL = "estudiouno@example.com";
+const EMAIL = "contacto@perezcarrazco.com";
 
 const PROXY = "https://tokko-proxy.tecno-serv00.workers.dev";
 
@@ -19,11 +19,10 @@ const TOKKO_BASE = "https://api.tokkobroker.com";
 
 
 async function fetchTokkoById(id) {
-  const url = `${PROXY}publication/${encodeURIComponent(id)}?ts=${Date.now()}`;
+  const url = `${PROXY}/property?id=${encodeURIComponent(id)}&ts=${Date.now()}`;
   const resp = await fetch(url, { cache: "no-store" });
   if (!resp.ok) throw new Error(`Proxy ${resp.status}`);
-  const data = await resp.json();
-  return data?.data ?? data; // por si el Worker envuelve en {data: ...}
+  return resp.json();
 }
 
 
