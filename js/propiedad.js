@@ -4,7 +4,7 @@
 const WHATSAPP_NUM = "2233048966"; // sin + ni 0 ni 15
 const EMAIL = "estudiouno@example.com";
 
-import { PROXY } from "./config.js";
+const PROXY = "https://tokko-proxy.tecno-serv00.workers.dev";
 
 
 // SI USÁS JSON:
