@@ -170,6 +170,16 @@ function renderResultados(lista) {
   document.getElementById("listado")?.scrollIntoView({ behavior: "smooth" });
 }
 
+// ── Navegación: header sticky con scroll ─────────────────────────────────────
+
+function initStickyHeader() {
+  const header = document.querySelector('.site-header');
+  if (!header) return;
+  const update = () => header.classList.toggle('scrolled', window.scrollY > 60);
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+}
+
 // ── Navegación: subheader + submenús ─────────────────────────────────────────
 
 function initNav() {
@@ -223,6 +233,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const anioEl = document.getElementById("anio");
   if (anioEl) anioEl.textContent = new Date().getFullYear();
 
+  initStickyHeader();
   initNav();
   initSubmenus();
 
