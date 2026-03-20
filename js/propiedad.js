@@ -101,7 +101,8 @@ function mapTokkoToLocal(raw) {
 
 
   // Campos varios
-  const tipo = p.property_type?.name || p.type || p.category || "";
+  const _tipoRaw = p.property_type?.name || p.type || p.category || "";
+  const tipo = typeof _tipoRaw === "object" ? (_tipoRaw?.name || "") : (_tipoRaw || "");
   const barrio = p.neighborhood || p.area || p.barrio || "";
   const direccion =
     p.address || [p.street, p.street_number].filter(Boolean).join(" ") || "";
@@ -295,7 +296,16 @@ function renderGaleria(imgs){
     idx = i;
     principal.src = imgs[idx];
     principal.alt = `Foto ${idx+1}`;
-    [...thumbs.children].forEach((el,n)=>el.classList.toggle("active", n===idx));
+    const children = [...thumbs.children];
+    children.forEach((el,n)=>el.classList.toggle("active", n===idx));
+    // Auto-scroll para centrar la miniatura activa
+    const activeThumb = children[idx];
+    if(activeThumb){
+      const thumbsRect = thumbs.getBoundingClientRect();
+      const activeRect = activeThumb.getBoundingClientRect();
+      const offset = activeRect.left - thumbsRect.left - (thumbsRect.width / 2) + (activeRect.width / 2);
+      thumbs.scrollBy({ left: offset, behavior: "smooth" });
+    }
   };
 
   imgs.forEach((src,i)=>{
@@ -310,6 +320,27 @@ function renderGaleria(imgs){
   document.querySelector(".ctrl.prev").onclick = ()=> setIdx((idx - 1 + imgs.length) % imgs.length);
   document.querySelector(".ctrl.next").onclick = ()=> setIdx((idx + 1) % imgs.length);
   setIdx(0);
+
+  // Drag-to-scroll en desktop
+  let isDown = false, startX, scrollLeft;
+  thumbs.addEventListener("mousedown", e=>{
+    isDown = true;
+    thumbs.classList.add("dragging");
+    startX = e.pageX - thumbs.offsetLeft;
+    scrollLeft = thumbs.scrollLeft;
+  });
+  thumbs.addEventListener("mouseleave", ()=>{ isDown = false; thumbs.classList.remove("dragging"); });
+  thumbs.addEventListener("mouseup", ()=>{ isDown = false; thumbs.classList.remove("dragging"); });
+  thumbs.addEventListener("mousemove", e=>{
+    if(!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - thumbs.offsetLeft;
+    const walk = (x - startX) * 1.5;
+    thumbs.scrollLeft = scrollLeft - walk;
+  });
+
+  // Swipe táctil nativo ya funciona con overflow-x: auto
+  // Pero agregamos snap para mejor UX táctil
 }
 
 function renderRelacionadas(actual){
@@ -347,6 +378,14 @@ function renderRelacionadas(actual){
  * NAV
  **********************/
 function initNav() {
+  // Header fijo con clase scrolled
+  const header = document.querySelector('.site-header');
+  if (header) {
+    const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 10);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll(); // ejecutar al cargar por si ya está scrolleado
+  }
+
   const toggle = document.querySelector('.nav-toggle');
   const mobileNav = document.getElementById('nav-mobile');
   if (!toggle || !mobileNav) return;

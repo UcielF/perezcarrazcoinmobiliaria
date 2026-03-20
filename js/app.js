@@ -185,6 +185,7 @@ function initStickyHeader() {
 function initNav() {
   const toggle   = document.querySelector('.nav-toggle');
   const mobileNav = document.getElementById('nav-mobile');
+  const overlay   = document.getElementById('navOverlay');
 
   if (!toggle || !mobileNav) return;
 
@@ -193,6 +194,7 @@ function initNav() {
     toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
     mobileNav.setAttribute('aria-hidden', open ? 'false' : 'true');
     toggle.querySelector('i').className = open ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
+    overlay?.classList.toggle('is-open', open);
   });
 
   document.addEventListener('click', e => {
@@ -201,6 +203,7 @@ function initNav() {
       toggle.setAttribute('aria-expanded', 'false');
       mobileNav.setAttribute('aria-hidden', 'true');
       toggle.querySelector('i').className = 'fa-solid fa-bars';
+      overlay?.classList.remove('is-open');
     }
   }, { passive: true });
 }
