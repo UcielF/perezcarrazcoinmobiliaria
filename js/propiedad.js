@@ -265,7 +265,15 @@ function renderProp(p){
   });
 
   $("#id-ref").textContent = p.id ?? p.codigo ?? p.slug ?? "-";
-  $("#direccion").textContent = p.direccion || p.address || "-";
+  const dirValue = p.direccion || p.address || "";
+  $("#direccion").textContent = dirValue || "—";
+  const mapaIframe = document.getElementById("prop-mapa");
+  if (mapaIframe && dirValue) {
+    const dirLimpia = dirValue.replace(/\s+al\s+/i, " ");
+    const q = encodeURIComponent(dirLimpia + ", Mar del Plata, Argentina");
+    mapaIframe.src = `https://maps.google.com/maps?q=${q}&output=embed`;
+    mapaIframe.style.display = "block";
+  }
 
   // Galería
   renderGaleria(p.imagenes || p.images || []);

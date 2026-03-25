@@ -41,6 +41,11 @@
           <li><a href="#contacto">Contacto</a></li>
         </ul>
       </nav>
+      <div class="nav-socials">
+        <a href="https://www.instagram.com/perezcarrazco_inmobiliaria" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="https://www.facebook.com/profile.php?id=61580411466472" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+        <a href="https://www.tokkobroker.com" target="_blank" rel="noopener" aria-label="Tokko Broker"><i class="fa-solid fa-building"></i></a>
+      </div>
       <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false">
         <i class="fa-solid fa-bars"></i>
       </button>
@@ -48,11 +53,15 @@
     <nav class="nav-mobile" id="nav-mobile" aria-hidden="true">
       <ul>
         <li><a href="index.html">Home</a></li>
-        <li><a href="servicios/ventas/ventas.html">Venta</a></li>
-        <li><a href="servicios/alquileres/alquileres.html">Alquiler</a></li>
-      
+        <li><a href="servicios/venta/venta.html">Venta</a></li>
+        <li><a href="servicios/alquiler/alquiler.html">Alquiler</a></li>
         <li><a href="#contacto">Contacto</a></li>
       </ul>
+      <div class="nav-mobile-socials">
+        <a href="https://www.instagram.com/perezcarrazco_inmobiliaria" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="https://www.facebook.com/profile.php?id=61580411466472" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+        <a href="https://www.tokkobroker.com" target="_blank" rel="noopener" aria-label="Tokko Broker"><i class="fa-solid fa-building"></i></a>
+      </div>
     </nav>
   </header>
 
@@ -161,7 +170,7 @@
             <h3><i class="fa-solid fa-location-dot"></i> Ubicación</h3>
             <p id="direccion">—</p>
             <div class="mapa-placeholder">
-              <i class="fa-solid fa-map"></i> Ver en mapa
+              <iframe id="prop-mapa" src="" loading="lazy" title="Ubicación de la propiedad" style="width:100%;height:180px;border:none;border-radius:10px;display:none;"></iframe>
             </div>
           </div>
 
