@@ -1,7 +1,7 @@
 /**********************
  * CONFIG
  **********************/
-const WHATSAPP_NUM = "2233048966"; // sin + ni 0 ni 15
+const WHATSAPP_NUM = "2235685409"; // sin + ni 0 ni 15
 const EMAIL = "contacto@perezcarrazco.com";
 
 const PROXY = "https://tokko-proxy.tecno-serv00.workers.dev";
@@ -278,7 +278,7 @@ function renderProp(p){
   renderGaleria(p.imagenes || p.images || []);
 
   // Acciones
-  const msg = encodeURIComponent(`Hola, me interesa la propiedad ${p.titulo || p.title} (ID ${p.id ?? p.codigo ?? p.slug}). ¿Está disponible?`);
+  const msg = encodeURIComponent(`Hola, me interesa la propiedad ${p.direccion || p.address || ""}, ${p.titulo || p.title}. ¿Está disponible?`);
   const waLink = `https://api.whatsapp.com/send?phone=54${WHATSAPP_NUM}&text=${msg}`;
   $("#btn-whatsapp").href = waLink;
   $("#btn-whatsapp-side").href = waLink;
@@ -401,13 +401,9 @@ function renderRelacionadas(actual){
  * NAV
  **********************/
 function initNav() {
-  // Header fijo con clase scrolled
+  // Header siempre con clase scrolled en propiedad.html
   const header = document.querySelector('.site-header');
-  if (header) {
-    const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 10);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll(); // ejecutar al cargar por si ya está scrolleado
-  }
+  if (header) header.classList.add('scrolled');
 
   const toggle = document.querySelector('.nav-toggle');
   const mobileNav = document.getElementById('nav-mobile');

@@ -9,11 +9,12 @@ const OP_MAP   = { venta: 1, alquiler: 2, temporario: 3 };
 const ROOT     = window.ROOT_PATH || "";
 
 const state = {
-  props:   [],
-  page:    1,
-  limit:   50,
-  loading: false,
-  opType:  null   // null = todos | 1 = venta | 2 = alquiler | 3 = temporario
+  props:      [],
+  page:       1,
+  limit:      50,
+  loading:    false,
+  opType:     null,
+  totalProps: null
 };
 
 // ── Utilidades ────────────────────────────────────────────────────────────────
@@ -83,6 +84,7 @@ async function fetchProps(page = 1, limit = 9, opType = null) {
   const r = await fetch(url);
   if (!r.ok) throw new Error(`HTTP ${r.status}`);
   const data = await r.json();
+  state.totalProps = data.meta?.total_count ?? data.count ?? null;
   return data.objects || data.results || [];
 }
 
@@ -135,6 +137,13 @@ async function cargarDisponibles(append = false) {
       grid.innerHTML = html || "<p>No hay propiedades disponibles en este momento.</p>";
     }
 
+    // Actualizar contador en botón toggle
+    const toggleSpan = document.querySelector('#disponibles-toggle span');
+    if (toggleSpan && !toggleSpan.closest('[aria-expanded="true"]')) {
+      const total = state.totalProps ?? state.props.length;
+      toggleSpan.textContent = `Ver propiedades (${total})`;
+    }
+
     // Ocultar "Ver más" si no hay más páginas
     if (items.length < state.limit) {
       document.getElementById("ver-mas")?.style.setProperty("display", "none");
@@ -165,7 +174,14 @@ function aplicarFiltros() {
       if (pOpId !== opId) return false;
     }
     if (tipo) {
-      const pTipo = (p.property_type?.name || p.type || "").toLowerCase();
+      const pTipo = [
+        p.property_type?.name,
+        p.property_type?.type,
+        p.type?.name,
+        p.type,
+        p.publication_title,
+        p.title
+      ].filter(Boolean).join(" ").toLowerCase();
       if (!pTipo.includes(tipo)) return false;
     }
     if (Number.isFinite(pMin) && (p.web_price ?? 0) < pMin) return false;
@@ -255,6 +271,34 @@ function initSubmenus() {
 
 // ── Init ──────────────────────────────────────────────────────────────────────
 
+function initSlider() {
+  const track = document.getElementById('grid-destacadas');
+  const thumb = document.getElementById('slider-thumb');
+  if (!track || !thumb) return;
+  const update = () => {
+    const ratio = track.scrollLeft / (track.scrollWidth - track.clientWidth);
+    const thumbW = Math.max(20, (track.clientWidth / track.scrollWidth) * 100);
+    thumb.style.width = thumbW + '%';
+    thumb.style.left = (ratio * (100 - thumbW)) + '%';
+  };
+  track.addEventListener('scroll', update, { passive: true });
+  track.addEventListener('wheel', (e) => {
+    if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+    e.preventDefault();
+    track.scrollBy({ left: e.deltaY * 2, behavior: 'smooth' });
+  }, { passive: false });
+  update();
+}
+
+function initReveal() {
+  const els = document.querySelectorAll('.section-head');
+  if (!els.length) return;
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.2 });
+  els.forEach(el => { el.classList.add('reveal'); observer.observe(el); });
+}
+
 document.addEventListener("DOMContentLoaded", async () => {
   const anioEl = document.getElementById("anio");
   if (anioEl) anioEl.textContent = new Date().getFullYear();
@@ -262,6 +306,18 @@ document.addEventListener("DOMContentLoaded", async () => {
   initStickyHeader();
   initNav();
   initSubmenus();
+  initReveal();
+  initSlider();
+
+  const toggleBtn = document.getElementById('disponibles-toggle');
+  const collapse  = document.getElementById('disponibles-collapse');
+  if (toggleBtn && collapse) {
+    toggleBtn.addEventListener('click', () => {
+      const open = collapse.classList.toggle('open');
+      toggleBtn.setAttribute('aria-expanded', open);
+      toggleBtn.querySelector('span').textContent = open ? 'Ocultar propiedades' : 'Ver propiedades';
+    });
+  }
 
   cargarDestacadas();
 

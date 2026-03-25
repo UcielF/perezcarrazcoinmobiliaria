@@ -92,7 +92,10 @@
       <div class="section-head">
         <h2>Propiedades destacadas</h2>
       </div>
-      <div id="grid-destacadas" class="disponibles"></div>
+    </div>
+    <div class="slider-wrap">
+      <div class="slider-track" id="grid-destacadas"></div>
+      <div class="slider-scrollbar"><div class="slider-thumb" id="slider-thumb"></div></div>
     </div>
   </section>
 
@@ -102,9 +105,18 @@
       <div class="section-head">
         <h2>Propiedades disponibles</h2>
       </div>
-      <div id="grid-disponibles" class="disponibles"></div>
-      <div class="center mt-3">
-        <button id="ver-mas" class="btn">Ver más propiedades</button>
+      <button class="disponibles-toggle" id="disponibles-toggle" aria-expanded="false">
+        <span>Ver propiedades</span>
+        <i class="fa-solid fa-chevron-down"></i>
+      </button>
+      <div class="disponibles-collapse" id="disponibles-collapse">
+        <div id="grid-disponibles" class="disponibles"></div>
+        <div class="center mt-3">
+          <button id="ver-mas">Ver más propiedades</button>
+        </div>
+        <div class="ver-todas-wrap">
+          <a href="servicios/venta/venta.html" class="ver-todas-link">Ver todas las propiedades <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
       </div>
     </div>
   </section>
@@ -113,7 +125,7 @@
   <section id="listado" class="section bg-muted">
     <div class="container">
       <div class="section-head">
-        <h2>Resultados</h2>
+        <h2></h2>
         <p id="contadorResultados" class="muted"></p>
       </div>
       <div id="gridResultados" class="grid-cards" aria-live="polite"></div>
@@ -153,22 +165,36 @@
 
   <!-- Footer -->
   <footer class="site-footer">
+    
     <div class="container footer-grid">
-      <div class="footer-left">
+      <div class="footer-col">
         <h3>Contacto</h3>
         <ul class="contact-list">
-          <li><i class="fa-brands fa-whatsapp"></i> <a href="https://wa.me/542233048966" target="_blank" rel="noopener">+54 223 304-8966</a></li>
+          <li><i class="fa-brands fa-whatsapp"></i> <a href="https://wa.me/542235685409" target="_blank" rel="noopener">+54 223 568-5409</a></li>
           <li><i class="fa-regular fa-envelope"></i> <a href="mailto:contacto@perezcarrazco.com">contacto@perezcarrazco.com</a></li>
-          <li><i class="fa-solid fa-location-dot"></i> Mar del Plata, Buenos Aires</li>
+          <li><i class="fa-solid fa-location-dot"></i> Córdoba 1882, Mar del Plata</li>
         </ul>
         <div class="socials">
-          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-          <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
-          <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+          <a href="https://www.instagram.com/perezcarrazco_inmobiliaria" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://www.facebook.com/profile.php?id=61580411466472" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
         </div>
       </div>
-      <div class="footer-center"></div>
-      <div class="footer-right"></div>
+      <div class="footer-col">
+        <h3>Navegación</h3>
+        <ul class="footer-nav">
+          <li><a href="#inicio">Buscar</a></li>
+          <li><a href="servicios/venta/venta.html">Venta</a></li>
+          <li><a href="servicios/alquiler/alquiler.html">Alquiler</a></li>
+          <li><a href="#quienes-somos">Quiénes somos</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Ubicación Inmobiliaria</h3>
+        <div class="footer-map">
+          <iframe src="https://maps.google.com/maps?q=Córdoba+1882,+Mar+del+Plata,+Buenos+Aires,+Argentina&output=embed" loading="lazy" title="Ubicación Perez Carrazco Inmobiliaria"></iframe>
+        </div>
+      </div>
     </div>
     <div class="container">
       <p class="copy">© <span id="anio"></span> Perez Carrazco. Todos los derechos reservados.</p>

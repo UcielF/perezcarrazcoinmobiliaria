@@ -7,11 +7,11 @@
 :root {
   --prop-bg:        #bbb9a45a;
   --prop-surface:   #ffffff;
-  --prop-border:    #e2e8e3;
+  --prop-border:    rgb(30, 90, 60);
   --prop-green:     rgba(0, 107, 43, 0.845);
-  --prop-green-dk:  rgb(0, 85, 34);
+  --prop-green-dk:  rgb(30, 90, 60);
   --prop-green-lt:  #eef4ef;
-  --prop-muted:     #7a8c7e;
+  --prop-muted:     #222422;
   --prop-text:      #1a2b1e;
   --prop-shadow:    0 2px 20px rgba(0, 60, 20, 0.08);
   --prop-shadow-lg: 0 8px 48px rgba(0, 60, 20, 0.13);
@@ -49,14 +49,7 @@ body {
   100% { transform: translateY(-90px) scale(0.5); opacity: 0; }
 }
 
-/* Header siempre con fondo en propiedad.html */
-.site-header {
-  position: fixed;
- 
-  background: rgba(255, 255, 255, 0.795) !important;
-  backdrop-filter: saturate(180%) blur(12px);
-  border-bottom: 1px solid var(--border);
-}
+
 
 .nav-container {
   height: 60px;
@@ -598,32 +591,37 @@ body {
 }
 
 .btn.primary {
-  background: #25d366;
-  color: #fff;
+  background: #1fb556ca;
+  color: #4b4b4b;
+  border: 1px solid var(--prop-border);
 }
 .btn.primary:hover {
-  background: #1db954;
+  background:#20cf66;
+  color: #fff;
   transform: translateY(-1px);
   box-shadow: 0 4px 16px rgba(37,211,102,0.3);
 }
 
 .btn.btn-email {
-  background: var(--prop-green);
-  color: #fff;
+  background: #82828251;
+  color: #4b4b4b;
+  border: 1px solid var(--prop-border);
 }
 .btn.btn-email:hover {
-  background: var(--prop-green-dk);
+  background: #53535386;
   transform: translateY(-1px);
+  color: #fff;
 }
 
 .btn.btn-compartir {
   background: transparent;
   color: var(--prop-text);
-  border: 1.5px solid var(--prop-border);
+  border: 1px solid var(--prop-border);
 }
 .btn.btn-compartir:hover {
-  border-color: var(--prop-green);
-  color: var(--prop-green);
+  background: #53535386;
+  transform: translateY(-1px);
+  color: #fff;
 }
 
 /* ============================================================
@@ -727,6 +725,8 @@ body {
   transition: all var(--transition);
   border: none;
   cursor: pointer;
+  border: 1px solid var(--prop-border);
+  border: 1px solid var(--prop-border);
 }
 
 .id-ref {
