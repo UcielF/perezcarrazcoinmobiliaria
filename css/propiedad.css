@@ -1079,10 +1079,11 @@ body {
 
 .wa-btn {
   background: #25d366 !important;
-  color: #fff !important;
+  color: #4d4d4dd5 !important;
   border-color: #25d366 !important;
 }
 .wa-btn:hover {
+  color: #fff !important;
   background: #1ebe5a !important;
   box-shadow: 0 4px 16px rgba(37,211,102,0.35) !important;
 }
