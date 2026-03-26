@@ -41,8 +41,6 @@
               <li><a href="contacto.html">Tasaciones</a></li>
             </ul>
           </li>
-          <li><a href="contacto.html" aria-current="page">Contacto</a></li>
-        </ul>
       </nav>
       <div class="nav-socials">
         <a href="https://www.instagram.com/perezcarrazco_inmobiliaria" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
@@ -60,7 +58,6 @@
         <li><a href="servicios/venta/venta.html">Venta</a></li>
         <li><a href="servicios/alquiler/alquiler.html">Alquiler</a></li>
         <li><a href="contacto.html">Tasaciones</a></li>
-        <li><a href="contacto.html" aria-current="page">Contacto</a></li>
       </ul>
       <div class="nav-mobile-socials">
         <a href="https://www.instagram.com/perezcarrazco_inmobiliaria" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
@@ -105,7 +102,7 @@
             <label for="email-mensaje">Mensaje</label>
             <textarea id="email-mensaje" rows="5" placeholder="Escribí tu consulta acá…"></textarea>
           </div>
-          <button type="submit" class="btn primary contacto-btn">
+          <button type="submit" class="btn btn-email">
             <i class="fa-regular fa-paper-plane"></i> Enviar mensaje
           </button>
         </form>
@@ -181,6 +178,15 @@
       const mensaje = document.getElementById('wa-mensaje').value.trim();
       const texto   = encodeURIComponent(`Hola, soy ${nombre}. ${mensaje}`);
       window.open(`https://wa.me/542235685409?text=${texto}`, '_blank');
+    });
+
+    // Header siempre scrolled (sin hero)
+    window.addEventListener('load', () => {
+      const header = document.querySelector('.site-header');
+      if (header) {
+        header.classList.add('scrolled');
+        window.addEventListener('scroll', () => header.classList.add('scrolled'), { passive: true });
+      }
     });
   </script>
 
